@@ -8,6 +8,11 @@ COPY . .
 
 
 
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
 # syntax=docker/dockerfile:1
 
 # # Comments are provided throughout this file to help you get started.
