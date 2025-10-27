@@ -7,9 +7,8 @@ export default function SearchContact() {
         setSearchQuery(e.target.value);
     }
     return (
-        <div className="flex">
             <input
-                className="w-full bg-amber-50"
+                className="w-full h-12 md:max-w-2/3 bg-white px-2 mb-4 rounded-xl pl-4"
                 type="search"
                 name="contact-search"
                 id="contact-search"
@@ -17,6 +16,5 @@ export default function SearchContact() {
                 value={searchQuery}
                 onChange={handleSearchOnChange}
             />
-        </div>
     )
 }
