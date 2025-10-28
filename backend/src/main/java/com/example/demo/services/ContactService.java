@@ -41,11 +41,11 @@ public class ContactService implements ContactServiceInterface {
 
     @Override
     public ContactDTO createContact(ContactDTO contactDTO) {
-        if (contactRepo.existByEmail(contactDTO.email())) {
+        if (contactRepo.existsByEmail(contactDTO.email())) {
             throw new Error("Contact with Email" + contactDTO.email());
         }
 
-        if (contactRepo.existByPhone(contactDTO.phone())) {
+        if (contactRepo.existsByPhone(contactDTO.phone())) {
             throw new Error("Contact with Phone" + contactDTO.phone());
         }
 

@@ -14,6 +14,6 @@ public interface ContactRepo extends JpaRepository<Contact, Long> {
     Optional<Contact> findByEmail(String email);
     Optional<Contact> findByPhone(String phone);
     Page<Contact> findByNameContainingIgnoreCase(String name, Pageable pageable);
-    boolean existByEmail(String email);
-    boolean existByPhone(String phone);
+    boolean existsByEmail(String email);
+    boolean existsByPhone(String phone);
 }
