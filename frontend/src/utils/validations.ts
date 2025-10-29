@@ -8,12 +8,12 @@ export const contactSchema = z.object({
         .trim(),
     phone: z
         .string()
-        .min(1, 'Phone is required')
+        .min(10, 'Phone number must be at least 10 characters')
+        .max(10, 'Phone number must not exceed 10 characters')
         .regex(/^[0-9+\-\s()]+$/, 'Invalid phone number format')
         .trim(),
     email: z
         .string()
-        .min(1, 'Email is required')
         .email('Invalid email format')
         .max(100, 'Email must not exceed 100 characters')
         .trim()
@@ -26,4 +26,8 @@ export const searchSchema = z.object({
     query: z.string().min(1, "Search query is required").max(100),
 });
 
-export type SearchInput = z.infer<typeof searchSchema>
+export type SearchInput = z.infer<typeof searchSchema>;
+
+export const contactUpdateSchema = contactSchema.partial();
+
+export type ContactUpdateSchema = z.infer<typeof contactUpdateSchema>;
