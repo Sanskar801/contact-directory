@@ -1,4 +1,4 @@
-import ContactCard from "./ui/ContactCard";
+import ContactCard from "./common/ContactCard";
 
 
 export default function ContactList() {
