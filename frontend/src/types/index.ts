@@ -30,8 +30,13 @@ export interface PaginationParams {
     sort: string;
 }
 
+export interface SortOption {
+    field: SortField;
+    direction: SortDirection;
+}
+
 export interface SearchParams extends PaginationParams {
-    name: string;
+    query: string;
 }
 
 export type SortField = 'name' | 'email' | 'phone' | 'createdAt' | 'updatedAt';
