@@ -24,24 +24,23 @@ export interface PagedResponse<T> {
     empty: boolean;
 }
 
-export interface PaginationParams {
-    page: number;
-    size: number;
-    sort: string;
-}
+export type SortField = 'name' | 'email' | 'phone' | 'createdAt' | 'updatedAt';
+export type SortDirection = 'asc' | 'desc';
 
 export interface SortOption {
     field: SortField;
     direction: SortDirection;
 }
 
+export interface PaginationParams {
+    page: number;
+    size: number;
+    sort: SortOption;
+}
+
 export interface SearchParams extends PaginationParams {
     query: string;
 }
-
-export type SortField = 'name' | 'email' | 'phone' | 'createdAt' | 'updatedAt';
-export type SortDirection = 'asc' | 'desc';
-
 
 export interface ErrorResponse {
     status: number;
