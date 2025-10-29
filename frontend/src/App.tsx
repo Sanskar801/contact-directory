@@ -1,5 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Container } from "lucide-react";
+import Container from "./components/layout/Container";
 import ContactList from "./components/contacts/ContactList";
 import Header from "./components/layout/Header";
 import { useToast } from "./hooks/useToast";

@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import type { PaginationParams, SearchParams } from "../types";
 import { queryKeys } from "../utils/queryClient";
-import { getAllContacts, searchContacts, getContactById } from '../services/contactServices'
+import { getAllContacts, getContactById, searchContacts } from "../services/ContactServicesFrontend";
+
 
 export function useContacts(params: PaginationParams) {
     const sortParam = `${params.sort.field},${params.sort.direction}`;

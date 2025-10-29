@@ -18,6 +18,8 @@ export default function Modal({ isOpen,
     size = 'md',
 }: ModalProps) {
 
+    if (!isOpen) return null;
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';

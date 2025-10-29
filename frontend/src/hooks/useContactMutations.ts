@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { type Contact, type ContactFormData } from "../types";
-import { createContact, deleteContact, updateContact } from "../services/contactServices";
+import { createContact, deleteContact, updateContact } from "../services/ContactServicesFrontend";
 import { queryKeys } from "../utils/queryClient";
 
 export function useCreateContact() {
@@ -57,28 +57,8 @@ export function useDeleteContact() {
 
     return useMutation({
         mutationFn: (id: number) => deleteContact(id),
-        onMutate: async (id) => {
-            await queryClient.cancelQueries({ queryKey: queryKeys.contacts.all });
-
-            const previousContacts = queryClient.getQueriesData({
-                queryKey: queryKeys.contacts.all,
-            });
-
-            queryClient.setQueriesData<Contact[]>(
-                { queryKey: queryKeys.contacts.all },
-                (old) => old?.filter((contact) => contact.id !== id)
-            );
-
-            return { previousContacts };
-        },
-        onError: (_err, _id, context) => {
-            if (context?.previousContacts) {
-                context.previousContacts.forEach(([queryKey, data]) => {
-                    queryClient.setQueryData(queryKey, data);
-                });
-            }
-        },
         onSuccess: () => {
+            // Refetch lists and any details to reflect deletion
             queryClient.invalidateQueries({ queryKey: queryKeys.contacts.all });
         },
     });

@@ -168,7 +168,7 @@ export default function ContactList() {
             ) : (
                 <>
                     <div className="space-y-3">
-                        {contacts.map((contact) => (
+                        {contacts.map((contact: Contact) => (
                             <ContactCard
                                 key={contact.id}
                                 contact={contact}
