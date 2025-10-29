@@ -3,11 +3,11 @@ import { SEARCH_DEBOUNCE_MS } from "../utils/constants";
 
 export function useSearch(initialValue = "") {
     const [searchTerm, setSearchTerm] = useState(initialValue);
-    const [debounceSearchTerm, setDebounceSearchTerm] = useState(initialValue);
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialValue);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setDebounceSearchTerm(searchTerm);
+            setDebouncedSearchTerm(searchTerm);
         }, SEARCH_DEBOUNCE_MS);
 
         return () => { clearTimeout(timer); };
@@ -15,14 +15,14 @@ export function useSearch(initialValue = "") {
 
     const clearSearch = useCallback(() => {
         setSearchTerm("");
-        setDebounceSearchTerm("");
+        setDebouncedSearchTerm("");
     }, []);
 
     return {
         searchTerm,
-        debounceSearchTerm,
+        debouncedSearchTerm,
         setSearchTerm,
         clearSearch,
-        isSearching: searchTerm != debounceSearchTerm,
+        isSearching: searchTerm != debouncedSearchTerm,
     };
 }
