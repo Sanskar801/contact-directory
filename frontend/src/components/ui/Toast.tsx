@@ -64,3 +64,24 @@ export default function Toast({
         </div>
     )
 }
+
+
+interface ToastContainerProps {
+    toasts: Array<{ id: string; message: string; type: ToastType }>;
+    onRemove: (id: string) => void;
+}
+
+export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
+    return (
+        <div className="pointer-events-none fixed right-4 top-4 z-50 flex max-w-sm flex-col gap-2">
+            {toasts.map((toast) => (
+                <Toast
+                    key={toast.id}
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => onRemove(toast.id)}
+                />
+            ))}
+        </div>
+    );
+}
