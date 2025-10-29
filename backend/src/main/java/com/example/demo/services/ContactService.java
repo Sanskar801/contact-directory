@@ -11,6 +11,8 @@ import org.springframework.web.client.ResourceAccessException;
 
 import com.example.demo.dto.ContactDTO;
 import com.example.demo.dto.PagedResponse;
+import com.example.demo.exception.DuplicateResourceException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Contact;
 import com.example.demo.repository.ContactRepo;
 
@@ -35,18 +37,18 @@ public class ContactService implements ContactServiceInterface {
     @Transactional(readOnly = true)
     public ContactDTO getContactById(Long id) {
         Contact contact = contactRepo.findById(id)
-                .orElseThrow(() -> new ResourceAccessException("Contact not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found with id: " + id));
         return convertToDTO(contact);
     }
 
     @Override
     public ContactDTO createContact(ContactDTO contactDTO) {
         if (contactRepo.existsByEmail(contactDTO.email())) {
-            throw new Error("Contact with Email" + contactDTO.email());
+            throw new DuplicateResourceException("Contact with email " + contactDTO.email() + " already exists");
         }
 
         if (contactRepo.existsByPhone(contactDTO.phone())) {
-            throw new Error("Contact with Phone" + contactDTO.phone());
+            throw new DuplicateResourceException("Contact with phone " + contactDTO.phone() + " already exists");
         }
 
         Contact contact = convertToEntity(contactDTO);
@@ -57,7 +59,7 @@ public class ContactService implements ContactServiceInterface {
     @Override
     public ContactDTO updateContact(Long id, ContactDTO contactDTO) {
         Contact existingContact = contactRepo.findById(id)
-                .orElseThrow(() -> new Error("Contact not found with id:" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found with id: " + id));
 
         existingContact.setName(contactDTO.name());
         existingContact.setPhone(contactDTO.phone());
@@ -70,7 +72,7 @@ public class ContactService implements ContactServiceInterface {
     @Override
     public void deleteContact(Long id) {
         if (!contactRepo.existsById(id)) {
-            throw new Error("Contact not found with id: " + id);
+            throw new ResourceNotFoundException("Contact not found with id: " + id);
         }
         contactRepo.deleteById(id);
     }
@@ -86,7 +88,7 @@ public class ContactService implements ContactServiceInterface {
     @Transactional(readOnly = true)
     public ContactDTO getContactByEmail(String email) {
         Contact contact = contactRepo.findByEmail(email)
-                .orElseThrow(() -> new Error("Contact not found with email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found with email: " + email));
         return convertToDTO(contact);
     }
 
