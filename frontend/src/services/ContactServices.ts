@@ -3,7 +3,7 @@ import { api } from "../utils/api";
 
 const CONTACTS_ENDPOINT = '/contacts';
 
-export async function name(params: PaginationParams): Promise<PagedResponse<Contact>> {
+export async function getAllContacts(params: PaginationParams): Promise<PagedResponse<Contact>> {
     const { page, size, sort } = params;
     const sortParam = `${sort.field},${sort.direction}`;
 
